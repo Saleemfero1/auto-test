@@ -5,7 +5,7 @@ Hackathon 2025
 ## Setup Guide
 
 ### Clone the Project
-```sh
+
 git clone <repository-url>
 cd auto-test
 ```
