@@ -1,0 +1,11 @@
+azure:
+  api-key: YOUR_API_KEY
+  endpoint: YOUR_ENDPOINT
+  deployment-name: "gpt-4o"
+  api-version: "2024-08-01-preview"
+  url-format: "%s/openai/deployments/%s/chat/completions?api-version=%s"
+  max_tokens: 1000
+timeout:
+  connect-timeout: 30
+  read-timeout: 60
+  write-timeout: 60

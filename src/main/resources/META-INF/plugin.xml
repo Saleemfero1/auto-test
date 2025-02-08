@@ -1,0 +1,30 @@
+<idea-plugin>
+    <id>org.example.autotest</id>
+    <name>AutoTest Generator</name>
+    <vendor email="saleem.bandenawaz@nextuple.com" url="https://www.nextuple.com/">Nextuple</vendor>
+    <description><![CDATA[
+        AutoTest Generator automates the creation of test scenarios from <b>user stories</b> and <b>design documents</b>.
+        This IntelliJ plugin extracts structured content from Word documents, converts it into JSON,
+        and leverages OpenAPI to generate <code>.feature</code> files with test cases for the specified feature.<br><br>
+        <b>Key Features:</b><br>
+        ✔️ Reads <b>User Stories</b> & <b>Design Docs</b> from Word files<br>
+        ✔️ Converts structured content into <b>test scenarios</b><br>
+        ✔️ Sends data to OpenAPI for <b>automated test case generation</b><br>
+        ✔️ Generates <b>.feature files</b> for behavior-driven testing (BDD)<br>
+        ✔️ Saves the feature file inside your project for easy access<br>
+    ]]></description>
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Registering the action -->
+    <actions>
+        <action id="org.example.autotest.GenerateFeatureAction"
+                class="org.example.autotest.GenerateFeatureAction"
+                text="Generate Test Scenarios"
+                description="Convert Word document into test cases">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+    </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+    </extensions>
+</idea-plugin>
