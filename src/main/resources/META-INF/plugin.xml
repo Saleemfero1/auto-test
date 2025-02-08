@@ -3,24 +3,37 @@
     <name>AutoTest Generator</name>
     <vendor email="saleem.bandenawaz@nextuple.com" url="https://www.nextuple.com/">Nextuple</vendor>
     <description><![CDATA[
+     <body>
         AutoTest Generator automates the creation of test scenarios from <b>user stories</b> and <b>design documents</b>.
         This IntelliJ plugin extracts structured content from Word documents, converts it into JSON,
         and leverages OpenAPI to generate <code>.feature</code> files with test cases for the specified feature.<br><br>
+        <img src="/resources/plugin_ss.png" alt="Plugin Image" width="400" height="300"><br>
         <b>Key Features:</b><br>
         ✔️ Reads <b>User Stories</b> & <b>Design Docs</b> from Word files<br>
         ✔️ Converts structured content into <b>test scenarios</b><br>
         ✔️ Sends data to OpenAPI for <b>automated test case generation</b><br>
         ✔️ Generates <b>.feature files</b> for behavior-driven testing (BDD)<br>
         ✔️ Saves the feature file inside your project for easy access<br>
-    ]]></description>
+        <b>How to Use:</b><br>
+                Step 1: Install the plugin<br>
+                Step 2: Import the project<br>
+                Step 3: Go to Tools and click on "Generate Gherkin Test Scenarios"<br>
+                Step 4: It will open a dialog box; upload `input.doc` which is a combined user story and design document Word file<br>
+                Step 5: Wait until the "Test cases generated" popup is shown on the screen<br>
+                Step 6: You can find the test cases in the generated `feature` file folder<br>
+             </body>
+        ]]>
+    </description>
     <depends>com.intellij.modules.platform</depends>
 
     <!-- Registering the action -->
-    <actions>
+  <actions>
         <action id="org.example.autotest.GenerateFeatureAction"
                 class="org.example.autotest.GenerateFeatureAction"
-                text="Generate Test Scenarios"
-                description="Convert Word document into test cases">
+                text="Generate Gherkin Test Scenarios"
+                description="Convert Word document containing user stories and design documents into Gherkin test cases"
+                icon="AllIcons.Actions.EnableNewUi"
+               >
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
     </actions>
