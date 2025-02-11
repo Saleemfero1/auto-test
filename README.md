@@ -1,43 +1,54 @@
-```markdown
-# auto-test
-Hackathon 2025
+# AutoTest Plugin
 
-## Setup Guide
+## Plugin Description
+AutoTest is a test case generation plugin which takes user stories and design docs as input in docx format and uses OpenAI to generate test scenarios in Gherkin format file (.feature) for the feature which the docx contains user story and design doc.
+
+<img src="src/main/resources/plugin_ss.png" alt="Tool Image" width="500" height="500">
+<img src="src/main/resources/plugin_marketPlace.png" alt="Plugin Image" width="500" height="500">
+
+
+### Key Features:
+- Reads detailed stories and design docx properly from Word to generate scenarios
+- We have two features: normal generation and deep search. Deep search will generate more scenarios than the normal one
+- Converts structured content into **test scenarios**
+- Generates **.feature files** for behavior-driven testing (BDD)
+- Saves the feature file inside your project for easy access
+- Shows real-time progress of the entire flow: file upload, generating test cases, and writing test cases in the file
+
+
+## Project Local Setup Guide
 
 ### Clone the Project
-
-git clone <repository-url>
-cd auto-test
+Clone this project from the clone option:
+```sh
+  git clone <repository-url>
+  cd auto-test
+```
+### Add Secrets
+ Add a secrets.yml file in the src/main/resources directory and add the following variables in this file:
+```sh
+ AZURE_API_KEY: YOUR_OPEN_AI_API_KEY
+ AZURE_ENDPOINT: YOUR_OPEN_AI_ENDPOINT
 ```
 
 ### Build the Project
-```sh
-./gradlew build
+Build the project using the gradlew build command:
+```shell
+  ./gradlew build
 ```
 
 ### Run the Plugin
-```sh
-./gradlew runIde
+Run the plugin using the following command:
+```shell
+  ./gradlew runIde
 ```
-
-This will open a new IntelliJ IDEA window. You can open any existing project or create a new project space where the plugin will place the generated feature files.
-
-## Plugin Description
-
-AutoTest Generator automates the creation of test scenarios from **user stories** and **design documents**. This IntelliJ plugin extracts structured content from Word documents, converts it into JSON, and leverages OpenAPI to generate `.feature` files with test cases for the specified feature.
-
-### Key Features:
-- Reads **User Stories** & **Design Docs** from Word files
-- Converts structured content into **test scenarios**
-- Sends data to OpenAPI for **automated test case generation**
-- Generates **.feature files** for behavior-driven testing (BDD)
-- Saves the feature file inside your project for easy access
 
 ### How to Use:
 1. Install the plugin
 2. Import the project
 3. Go to Tools and click on "Generate Gherkin Test Scenarios"
-4. It will open a dialog box; upload `input.doc` which is a combined user story and design document Word file
-5. Wait until the "Test cases generated" popup is shown on the screen
-6. You can find the test cases in the generated `feature` file folder
-```
+4. A dialog will open and ask to provide the feature name which will be used to generate the Gherkin file with the feature name later.
+5. After providing the feature name, it will open a dialog box; upload `.docx` file  which is a combined user story and design document.
+6. Wait until the "Test cases generated" popup is shown on the screen, indicating that the test cases have been successfully generated.
+7. You can find the test cases in the generated `generated-features` file folder
+
