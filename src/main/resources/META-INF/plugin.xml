@@ -7,7 +7,7 @@
         AutoTest Generator automates the creation of test scenarios from <b>user stories</b> and <b>design documents</b>.
         This IntelliJ plugin extracts structured content from Word documents, converts it into JSON,
         and leverages OpenAPI to generate <code>.feature</code> files with test cases for the specified feature.<br><br>
-        <img src="/resources/plugin_ss.png" alt="Plugin Image" width="400" height="300"><br>
+        <br>
         <b>Key Features:</b><br>
         ✔️ Reads <b>User Stories</b> & <b>Design Docs</b> from Word files<br>
         ✔️ Converts structured content into <b>test scenarios</b><br>

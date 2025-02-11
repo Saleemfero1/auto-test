@@ -15,7 +15,7 @@ import java.io.IOException;
 public class FeatureFileUtil {
     private static final Logger logger = LoggerFactory.getLogger(FeatureFileUtil.class);
 
-    public static void saveFeatureFile(AnActionEvent event, String featureContent) {
+    public static void saveFeatureFile(AnActionEvent event, String featureContent, String featureName) {
         logger.debug("Inside saveFeatureFile method");
 
         String projectPath = event.getProject().getBasePath();
@@ -25,7 +25,7 @@ public class FeatureFileUtil {
         }
 
         String featureFolderPath = projectPath + "/generated-features";
-        String featureFilePath = featureFolderPath + "/generated.feature";
+        String featureFilePath = featureFolderPath + "/generated_" + featureName + ".feature";
 
         File featureFolder = new File(featureFolderPath);
         if (!featureFolder.exists()) {

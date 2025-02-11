@@ -19,7 +19,7 @@ import static org.example.autotest.FeatureFileUtil.saveFeatureFile;
 import static org.example.autotest.WordToJsonConverter.convertWordToPrompt;
 
 public class GenerateFeatureAction extends AnAction {
-    private static final Logger logger = LoggerFactory.getLogger(WordToJsonConverter.class);
+    private static final Logger logger = LoggerFactory.getLogger(GenerateFeatureAction.class);
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
@@ -32,25 +32,50 @@ public class GenerateFeatureAction extends AnAction {
                 .withTitle("Select a Word Document")
                 .withFileFilter(file -> file.getName().endsWith(".docx"));
 
+        String featureName = Messages.showInputDialog(
+                project,
+                "Enter the Feature Name:",
+                "Feature Name",
+                Messages.getQuestionIcon()
+        );
+
         FileChooser.chooseFile(descriptor, project, null, (VirtualFile virtualFile) -> {
             String docFilePath = virtualFile.getPath();
             logger.info("Selected Word Document: {}", docFilePath);
 
-            ProgressManager.getInstance().run(new Task.Modal(event.getProject(), "Generating Feature File...", false) {
+            // Show a modal dialog asking if the user wants to generate deep test cases
+            int result = Messages.showYesNoDialog(
+                    project,
+                    "By default generate option will build basic  and happy-path scenarios test cases." +
+                            "If we want more scenarios then we can select generatePro option. Select Yes if you want to go with 'generatePlus'",
+                    "GeneratePlus",
+                    Messages.getQuestionIcon()
+            );
+
+            boolean isDeepGen = (result == Messages.YES);
+
+            ProgressManager.getInstance().run(new Task.Modal(event.getProject(), "AutoTest", false) {
                 @Override
                 public void run(@NotNull ProgressIndicator indicator) {
 
-                    // Step 1: Convert Word to Prompt
-                    String prompt = convertWordToPrompt(docFilePath);
+                    indicator.setText("Uploading File..");
+
+                    String prompt = convertWordToPrompt(docFilePath, indicator);
                     logger.info("word.docx successfully converted to prompt");
 
-                    // Step 2: Send JSON to OpenAI API
-                    String featureFileContent = ApiClient.sendJsonToApi(prompt);
+                    indicator.setText("Generating Feature file.");
 
-                    // Step 3: Save the Feature File
+                    String featureFileContent;
+                    if (isDeepGen)
+                        featureFileContent = DeepGenerate.fetchTestCaseHeadings(prompt, indicator);
+                    else
+                        featureFileContent = ApiClient.sendJsonToApi(prompt, indicator);
+
+                    indicator.setText("Saving to file.");
                     WriteCommandAction.runWriteCommandAction(project, () ->
-                            saveFeatureFile(event, featureFileContent)
+                            saveFeatureFile(event, featureFileContent, featureName)
                     );
+                    indicator.setText("Done.");
                 }
             });
 
